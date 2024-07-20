@@ -101,7 +101,7 @@ k3s будем ставить в варианте с одной нодой. Мы
 Вместо встроенного ingress controller на базе traefik, будем использовать более привычный на базе nginx.
 
 ```shell
-curl -sfL https://get.k3s.io | sh -s - server --default-local-storage-path "/var/k3s/storage" --data-dir "/var/k3s/data" --disable=traefik
+curl -sfL https://get.k3s.io | sh -s - server --disable=traefik --write-kubeconfig-mode=644
 ```
 
 ```shell
