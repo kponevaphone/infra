@@ -39,7 +39,7 @@ spec:
       servicePort: minio-console
       annotations:
         cert-manager.io/cluster-issuer: dev-ca-issuer
-        cert-manager.io/common-name: minio.local
+        cert-manager.io/common-name: minio.localdev.me
         cert-manager.io/subject-organizations: "home dev lab"
         cert-manager.io/subject-countries: "RU"
         cert-manager.io/subject-localities: "Moscow"
