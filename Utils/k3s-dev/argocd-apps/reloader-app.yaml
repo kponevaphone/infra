@@ -4,13 +4,13 @@ metadata:
   name: reloader
   namespace: argo-cd
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    # - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
     repoURL: 'https://github.com/kponevaphone/infra'
     path: Utils/k3s-dev/manifests/reloader
-    targetRevision: master
+    targetRevision: main
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: kube-system
