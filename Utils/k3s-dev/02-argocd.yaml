@@ -7,7 +7,7 @@ metadata:
 spec:
   repo: https://argoproj.github.io/argo-helm
   chart: argo-cd
-  version: 6.0.6
+  version: 7.3.9
   targetNamespace: argo-cd
   valuesContent: |-
     crds:
@@ -28,8 +28,8 @@ spec:
       
       repositories:
         artur-repo:
-          url: https://github.com/BigKAA/youtube
-          name: bigkaa
+          url: https://github.com/kponevaphone/infra
+          name: neva
           type: git
 
       secret:
@@ -48,7 +48,7 @@ spec:
       replicas: 1
       certificate:
         enabled: true
-        domain: argocd-dev.kryukov.local
+        domain: argocd.localdev.me
         renewBefore: 360h
         duration: 9125h
         issuer:
@@ -68,7 +68,7 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/ssl-redirect: "false"
         ingressClassName: "system-ingress"
-        hostname: argocd-dev.kryukov.local
+        hostname: argocd.localdev.me
         path: /
         pathType: Prefix
         tls: true
