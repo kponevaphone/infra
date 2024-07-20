@@ -7,7 +7,7 @@ metadata:
 spec:
   repo: 'https://charts.gitlab.io'
   chart: gitlab
-  version: 7.9.2
+  version: 8.2.0
   targetNamespace: gitlab
   valuesContent: |-
     certmanager:
@@ -46,7 +46,7 @@ spec:
         host: postgres-np.psql.svc
         port: 5432
         database: gitlab
-        username: artur
+        username: admin
         password:
           useSecret: true
           secret: postgres-secret
@@ -71,9 +71,9 @@ spec:
           enabled: true
 
       hosts:
-        domain: kryukov.local
+        domain: localdev.me
         https: true
-        externalIP: 192.168.218.189
+        externalIP: 192.168.243.6
 
       appConfig:
         # https://docs.gitlab.com/charts/advanced/external-object-storage/#lfs-artifacts-uploads-packages-external-diffs-terraform-state-dependency-proxy
@@ -118,7 +118,7 @@ spec:
         tls: false
         starttls_auto: false
         openssl_verify_mode: 'none'
-        domain: "git.kryukov.local"
+        domain: "git.localdev.me"
         address: mail-relay.mail-relay.svc
         port: 25
         authentication: "none"
@@ -126,8 +126,8 @@ spec:
           secret: 'fake-mail-password'
           key: 'password'
       email:
-        from: "noreply@gitlab.kryukov.local"
-        display_name: "GitLab kryukov.local"
+        from: "noreply@gitlab.localdev.me"
+        display_name: "GitLab localdev.me"
 
     # https://docs.gitlab.com/charts/advanced/external-object-storage/#backups
     gitlab:
@@ -143,13 +143,13 @@ spec:
       webservice:
         ingress:
           annotations:
-            cert-manager.io/common-name: gitlab.kryukov.local
+            cert-manager.io/common-name: gitlab.localdev.me
           tls:
             secretName: gitlab-tls
       kas:
         ingress:
           annotations:
-            cert-manager.io/common-name: kas.kryukov.local
+            cert-manager.io/common-name: kas.localdev.me
           tls:
             secretName: kas-tls
     
