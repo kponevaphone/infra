@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/kponevaphone/infra'
-    path: "Utils/k3s-dev/charts/minio-after-delete-console.yaml"
+    path: "Utils/k3s-dev/charts/minio.yaml"
     targetRevision: master
   destination:
     server: 'https://kubernetes.default.svc'
