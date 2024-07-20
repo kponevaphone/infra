@@ -11,7 +11,7 @@ kubectl apply -f 00-priorityclass.yaml
 ### Cert-manager
 
 ```shell
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.2/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.1/cert-manager.yaml
 ```
 
 ## CA и ClusterIssuer
