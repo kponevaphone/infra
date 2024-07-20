@@ -4,13 +4,13 @@ metadata:
   name: postgresql
   namespace: argo-cd
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    # - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/BigKAA/youtube'
+    repoURL: 'https://github.com/kponevaphone/infra'
     path: Utils/k3s-dev/manifests/psql/
-    targetRevision: master
+    targetRevision: main
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: psql
