@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: 'https://github.com/kponevaphone/infra'
     path: Utils/k3s-dev/manifests/mail-relay/
-    targetRevision: dev
+    targetRevision: main 
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: mail-relay
