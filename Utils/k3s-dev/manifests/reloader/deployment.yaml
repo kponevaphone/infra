@@ -10,15 +10,15 @@ spec:
   selector:
     matchLabels:
       app: reloader
-      version: v1.0.118
+      version: v1.0.119
   template:
     metadata:
       labels:
         app: reloader
-        version: v1.0.118
+        version: v1.0.119
     spec:
       containers:
-      - image: "ghcr.io/stakater/reloader:v1.0.118"
+      - image: "ghcr.io/stakater/reloader:v1.0.119"
         imagePullPolicy: IfNotPresent
         name: reloader
         ports:
