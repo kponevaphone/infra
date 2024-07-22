@@ -79,7 +79,6 @@ spec:
           volumeMounts:
             - name: home-dir
               mountPath: /home/{{ .Values.user.name }}
-              #type: Directory
             - name: cacrt
               mountPath: /usr/local/share/dev-ca.crt
               subPath: dev-ca.crt
