@@ -10,7 +10,7 @@ container:
   stage: build
   image:
     # https://github.com/GoogleContainerTools/kaniko/releases
-    name: gcr.io/kaniko-project/executor:v1.20.1-debug
+    name: gcr.io/kaniko-project/executor:latest
     entrypoint: [""]
   tags:
     - global
