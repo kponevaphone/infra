@@ -2,7 +2,7 @@
 apiVersion: helm.cattle.io/v1
 kind: HelmChart
 metadata:
-  name: artur_dev
+  name: temadev
   namespace: default
 spec:
   repo: 'oci://registry.localdev.me/charts'
@@ -16,7 +16,7 @@ spec:
       tag: "24.04"
 
     user:
-      name: artur
+      name: tema
       id: "1001"
       baseHomeDirHostPath: /home
       pubKey:
