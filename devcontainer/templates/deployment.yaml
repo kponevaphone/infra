@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "devcontainer.fullname" . }}
+  labels:
+    {{- include "devcontainer.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "devcontainer.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "devcontainer.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        - name: init
+          image: busybox:1.36.1
+          imagePullPolicy: IfNotPresent
+          command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 5']
+          volumeMounts:
+            - name: home-dir
+              mountPath: /home/{{ .Values.user.name }}
+              #type: Directory
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: USER_NAME
+            value: "{{ .Values.user.name }}"
+          - name: USER_ID
+            value: "{{ .Values.user.id }}"
+          ports:
+            - name: ssh
+              containerPort: 22
+              protocol: TCP
+            - name: application
+              containerPort: {{ .Values.applicationService.port }}
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 22
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            tcpSocket:
+              port: 22
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: home-dir
+              mountPath: /home/{{ .Values.user.name }}
+              #type: Directory
+            - name: cacrt
+              mountPath: /usr/local/share/dev-ca.crt
+              subPath: dev-ca.crt
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: home-dir
+          hostPath:
+            path: "{{ .Values.user.baseHomeDirHostPath}}/{{ .Values.user.name }}"
+        - name: cacrt
+          configMap: 
+            name: {{ include "devcontainer.fullname" . }}
