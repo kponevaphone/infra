@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kafka 
+  namespace: argo-cd
+  finalizers:
+    # - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://charts.bitnami.com/bitnami'
+    chart: kafka 
+    targetRevision: 29.3.12 
+    helm:
+      values: |
+        clusterDomain: localdev.me
+        nameOverride: "kafka"
+        fullnameOverride: "kafka"
+        image:
+          debug: false
+        heapOpts: -Xmx1024m -Xms1024m
+        controller:
+          replicaCount: 1
+        broker:
+          replicaCount: 1
+        service:
+          type: NodePort
+          ports:
+            client: 9092
+            internal: 9093
+            interbroker: 9094
+            external: 9095
+          nodePorts:
+            client: "32092"
+            external: ""
+        volumePermissions:
+          enabled: true
+        kraft:
+          enabled: true 
+
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kafka 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
