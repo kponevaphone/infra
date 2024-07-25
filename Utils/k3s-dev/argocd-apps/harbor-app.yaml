@@ -100,6 +100,13 @@ spec:
           jobserviceDatabaseIndex: "1"
           registryDatabaseIndex: "2"
           trivyAdapterDatabaseIndex: "5"
+        resources:
+          requests:
+            cpu: 1
+            memory: 512Mi
+          limits:
+            cpu: 2
+            memory: 1024Mi
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: harbor

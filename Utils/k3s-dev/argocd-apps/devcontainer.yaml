@@ -63,7 +63,13 @@ spec:
             Lv5cRdknEw3juS1gceGMHbkqdhuMTy0w15R8K6Ka9kCCPHgd1JY1Iz/HN8ePY+zf
             2tp6eRMyzDAqdVcfEyCMHrs9zAB6wFPtvVRe
             -----END CERTIFICATE-----
-
+        resources:
+          requests:
+            cpu: 1
+            memory: 512Mi
+          limits:
+            cpu: 2
+            memory: 1024Mi
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default

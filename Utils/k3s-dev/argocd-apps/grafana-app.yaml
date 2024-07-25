@@ -39,6 +39,13 @@ spec:
             cert-manager.io/private-key-size: "4096"
             cert-manager.io/private-key-rotation-policy: Always
           tls: true
+        resources:
+          requests:
+            cpu: 1
+            memory: 512Mi
+          limits:
+            cpu: 2
+            memory: 1024Mi
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: grafana 
