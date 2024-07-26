@@ -16,7 +16,7 @@ spec:
         kafka:
           enabled: true
           controller:
-            replicaCount: 0
+            replicaCount: 1
             automountServiceAccountToken: true
           broker:
             replicaCount: 2
@@ -24,11 +24,7 @@ spec:
               size: 1Gi
             automountServiceAccountToken: true
           kraft:
-            enabled: false
-          zookeeper:
-            enabled: true
-            persistence:
-              size: 1Gi
+            enabled: true 
           listeners:
             client:
               protocol: PLAINTEXT

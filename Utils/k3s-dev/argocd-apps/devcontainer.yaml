@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: 'registry.localdev.me/charts'
     chart: devcontainer
-    targetRevision: 0.1.0
+    targetRevision: 0.1.2
     helm:
       values: |
         image:
