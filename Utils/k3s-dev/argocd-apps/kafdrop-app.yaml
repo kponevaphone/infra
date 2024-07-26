@@ -8,8 +8,9 @@ metadata:
 spec:
   project: default
   source:
+    path: chart
     repoURL: 'https://github.com/obsidiandynamics/kafdrop'
-    chart: chart
+    targetRevision: main
     helm:
       values: |  
         kafdrop:

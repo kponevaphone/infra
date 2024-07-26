@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: kafka-helm-repo
+  name: kafdrop 
   namespace: argo-cd
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
-  url: https://helm-charts.itboon.top/kafka
-  name: kafka-repo
-  type: helm
+  url: https://github.com/kponevaphone/kafdrop
+  name: kafdrop
+  type: git
