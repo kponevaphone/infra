@@ -1,0 +1,78 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kafka 
+  namespace: argo-cd
+  finalizers:
+    # - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://helm-charts.itboon.top/kafka'
+    chart: kafka
+    targetRevision: 16.1.1
+    helm:
+      values: | 
+        nameOverride: "kafka"
+        fullnameOverride: "kafka"
+        clusterDomain: "localdev.me"     
+        serviceAccount:
+          create: true
+          annotations: {}
+          name: "kafka"
+          containerPort: 
+            controller: 9090
+            broker: 9092
+            brokerExternal: kafka-headless.kafka.svc:9095
+        service:
+          ## broker.service.type - "ClusterIP" "NodePort" or "LoadBalancer"
+          type: ClusterIP
+          port: 9092
+          # nodePort: 31092
+          annotations: {}
+
+        ## broker.external
+        external:
+          enabled: true
+          # type: "NodePort"
+          service:
+            ## broker.external.service.type - "NodePort" or "LoadBalancer"
+            type: "NodePort"
+            annotations: {}
+            port: 9095
+          nodePorts:
+            - 31050
+          domainSuffix: ".localdev.me"  
+        ui:
+          enabled: true 
+        ingress:
+          core:
+            ingressClassName: "system-ingress"
+            hostname: kafka.localdev.me
+            annotations:
+              ingress.kubernetes.io/ssl-redirect: "true"
+              ingress.kubernetes.io/proxy-body-size: "0"
+              nginx.ingress.kubernetes.io/ssl-redirect: "true"
+              nginx.ingress.kubernetes.io/proxy-body-size: "0"
+              cert-manager.io/cluster-issuer: dev-ca-issuer
+              cert-manager.io/common-name: kafka.localdev.me
+              cert-manager.io/subject-organizations: "home dev lab"
+              cert-manager.io/subject-countries: "RU"
+              cert-manager.io/subject-localities: "Moscow"
+              cert-manager.io/duration: "9125h"
+              cert-manager.io/renew-before: "360h"
+              cert-manager.io/usages: "server auth"
+              cert-manager.io/private-key-algorithm: RSA
+              cert-manager.io/private-key-encoding: "PKCS8"
+              cert-manager.io/private-key-size: "4096"
+              cert-manager.io/private-key-rotation-policy: Always
+            tls: true
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kafka 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

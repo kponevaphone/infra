@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kafka 
+  name: kafka
   namespace: argo-cd
   finalizers:
     # - resources-finalizer.argocd.argoproj.io
@@ -9,34 +9,44 @@ spec:
   project: default
   source:
     repoURL: 'https://charts.bitnami.com/bitnami'
-    chart: kafka 
-    targetRevision: 29.3.12 
+    chart: kafka
+    targetRevision: 29.3.13
     helm:
-      values: |
-        clusterDomain: localdev.me
-        nameOverride: "kafka"
-        fullnameOverride: "kafka"
-        image:
-          debug: true
-        heapOpts: -Xmx1024m -Xms1024m
-        controller:
-          replicaCount: 1
-        broker:
-          replicaCount: 1
-        volumePermissions:
+      values: |  
+        kafka:
           enabled: true
-        kraft:
-          enabled: true 
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+          controller:
+            replicaCount: 0
+            automountServiceAccountToken: true
+          broker:
+            replicaCount: 2
+            persistence:
+              size: 1Gi
+            automountServiceAccountToken: true
+          kraft:
+            enabled: false
+          zookeeper:
+            enabled: true
+            persistence:
+              size: 1Gi
+          listeners:
+            client:
+              protocol: PLAINTEXT
+            controller:
+              protocol: PLAINTEXT
+            interbroker:
+              protocol: PLAINTEXT
+            external:
+              protocol: PLAINTEXT
+          externalAccess:
+            enabled: true
+            broker:
+              service:
+                type: ClusterIP
+                domain: 192.168.243.6
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: kafka 
+    namespace: kafka
   syncPolicy:
     automated:
       prune: true
