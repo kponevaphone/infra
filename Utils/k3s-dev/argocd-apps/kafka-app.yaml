@@ -18,11 +18,13 @@ spec:
           controller:
             replicaCount: 1
             automountServiceAccountToken: true
-          broker:
-            replicaCount: 2
-            persistence:
-              size: 1Gi
-            automountServiceAccountToken: true
+            resourcesPreset: "nano"
+          # broker:
+            # replicaCount: 2
+            # persistence:
+              # size: 1Gi
+            # automountServiceAccountToken: true
+            # resourcesPreset: "small"
           kraft:
             enabled: true 
           listeners:

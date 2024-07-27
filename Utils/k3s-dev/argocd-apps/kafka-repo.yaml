@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: kafdrop 
+  name: redpanda 
   namespace: argo-cd
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
-  url: https://github.com/kponevaphone/kafdrop
-  name: kafdrop
-  type: git
+  url: https://charts.redpanda.com 
+  name: redpanda
+  type: helm

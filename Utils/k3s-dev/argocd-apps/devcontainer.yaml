@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: 'registry.localdev.me/charts'
     chart: devcontainer
-    targetRevision: 0.1.2
+    targetRevision: 0.1.13
     helm:
       values: |
         image:
@@ -65,11 +65,11 @@ spec:
             -----END CERTIFICATE-----
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "250m"
+            memory: 256
+            cpu: 1
           limits:
-            memory: "128Mi"
-            cpu: "500m"            
+            memory: 512
+            cpu: 2            
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
