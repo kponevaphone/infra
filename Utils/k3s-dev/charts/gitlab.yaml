@@ -73,7 +73,7 @@ spec:
       hosts:
         domain: localdev.me
         https: true
-        externalIP: 192.168.243.6
+        externalIP: 192.168.243.5
 
       appConfig:
         # https://docs.gitlab.com/charts/advanced/external-object-storage/#lfs-artifacts-uploads-packages-external-diffs-terraform-state-dependency-proxy
