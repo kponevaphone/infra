@@ -7,12 +7,12 @@ metadata:
 spec:
   repo: 'https://charts.gitlab.io'
   chart: gitlab-runner
-  version: 0.67.0
+  version: 0.62.1
   targetNamespace: gitlab
   valuesContent: |-
     imagePullPolicy: IfNotPresent
     revisionHistoryLimit: 3
-    gitlabUrl: https://gitlab.localdev.me/
+    gitlabUrl: https://gitlab.kryukov.local/
     terminationGracePeriodSeconds: 3600
     # Количество раннеров
     concurrent: 5
@@ -45,9 +45,8 @@ spec:
           output_limit = 10000
           tls-ca-file = "/home/gitlab-runner/.gitlab-runner/certs/ca.crt"
           [runners.kubernetes]
-            image = "ubuntu"
-            tls-ca-file = "/home/gitlab-runner/.gitlab-runner/certs/ca.crt"
-            # helper_image = "gitlab/gitlab-runner-helper:alpine3.18-ppc64le-bleeding"
+            image = "ubuntu:22.04"
+            # helper_image = "if use custom helper"
           [[runners.kubernetes.volumes.secret]]
             # ??? не уверен, что надо
             name = "gitlab-tls"
