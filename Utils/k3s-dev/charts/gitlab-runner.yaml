@@ -46,7 +46,7 @@ spec:
           tls-ca-file = "/home/gitlab-runner/.gitlab-runner/certs/ca.crt"
           [runners.kubernetes]
             image = "ubuntu"
-            # helper_image = "if use custom helper"
+            helper_image = "gitlab/gitlab-runner-helper:alpine3.18-ppc64le-bleeding"
           [[runners.kubernetes.volumes.secret]]
             # ??? не уверен, что надо
             name = "gitlab-tls"
