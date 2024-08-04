@@ -8,7 +8,7 @@ chart:
     name: registry.kryukov.local/library/kubeutils:1.28.6
     entrypoint: [""]
   tags:
-    - default
+    - global 
   before_script:
     - cat ${DEV_CA} >> /etc/ssl/certs/ca-certificates.crt
     - helm registry login ${DEV_REGISTRY} -u ${DEV_REGISTRY_USER} -p ${DEV_REGISTRY_PASSWORD}

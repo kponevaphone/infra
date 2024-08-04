@@ -14,9 +14,28 @@ spec:
     helm:
       values: |
         clusterDomain: localdev.me
-        admin:
-          user: "admin"
-          existingSecretPasswordKey: password
+        auth:
+          ## @param auth.enabled Enable/disable authentication (Variable to keep compatibility with InfluxDB&trade; v1, in v2 it will be ignored)
+          enabled: true
+          ## @param auth.usePasswordFiles Whether to use files to provide secrets instead of env vars.
+          usePasswordFiles: false
+          ## InfluxDB&trade; admin credentials
+          admin:
+            ## @param auth.admin.username InfluxDB&trade; admin user name
+            username: admin
+            ## @param auth.admin.password InfluxDB&trade; admin user's password
+            password: "RssNj2CQ"
+            ## @param auth.admin.token InfluxDB&trade; admin user's token. Only valid with InfluxDB&trade; v2
+            token: "RssNj2CQeUwIRfYDFCMb"
+            ## @param auth.admin.org InfluxDB&trade; admin user's org. Only valid with InfluxDB&trade; v2
+            ##
+            org: primary
+            ## @param auth.admin.bucket InfluxDB&trade; admin user's bucket. Only valid with InfluxDB&trade; v2
+            ##
+            bucket: primary
+            ## @param auth.admin.retention InfluxDB&trade; admin user's bucket retention. Only valid with InfluxDB&trade; v2
+            ##
+            #retention: ""
         ingress:
           enabled: true
           ingressClassName: "system-ingress"
@@ -39,13 +58,6 @@ spec:
             cert-manager.io/private-key-size: "4096"
             cert-manager.io/private-key-rotation-policy: Always
           tls: true
-        resources:
-          requests:
-            cpu: 1
-            memory: 512Mi
-          limits:
-            cpu: 2
-            memory: 1024Mi
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: influxdb 
